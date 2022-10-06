@@ -2,11 +2,13 @@
 #include<stdio.h>
 
 //global var
-    int winner;
+int winner;
+int playSpace[3][3]= {{1,2,3},{4,5,6},{7,8,9}};
     
 void rules();
 void pvp();
 void pvpc();
+void wincon();
 
 int main (){
     char choice; 
@@ -35,7 +37,7 @@ int main (){
     //decide winner 
 
 
-    // option to play again 
+    // option to play again? 
 
 
     //utilize multiple functions in order to loop the game
@@ -51,11 +53,11 @@ int main (){
 }
 
 void rules(){
-    printf("Enter the coordinates according to the feild below\n\n");
+    printf("\n\nEnter the coordinates according to the feild below\n\n");
     printf("+-----------------+\n");
-    printf("|(1,1)|(1,2)|(1,3)|\n");
-    printf("|(2,1)|(2,2)|(2,3)|\n");
-    printf("|(3,1)|(3,2)|(3,3)|\n");
+    printf("|  1  |  2  |  3  |\n");
+    printf("|  4  |  5  |  6  |\n");
+    printf("|  7  |  8  |  9  |\n");
     printf("+-----------------+\n");
 }
 
@@ -66,4 +68,10 @@ void pvp(){
 
 void pvpc(){
     rules();
+}
+
+void wincon(){
+    if( 1 == 1){
+
+    }
 }
