@@ -9,7 +9,6 @@ char board[9];
 bool player1 = true;
 bool player2 = false;
 bool computer = false;
-int turns = 1;
 bool win;
     
 void rules(){
@@ -73,62 +72,82 @@ if(move == 1){
 }
 
 bool checkWin(char board[]){
-    if(board[0] && board[1] && board[2] == 'O' || 'X'){
+    if((board[0] == board[1]) && (board[1] == board[2]) && (board[0] != ' ')){
         return true;
-    }else if(board[3] && board[4] && board[5] == 'O' || 'X'){
+    }else if((board[3] == board[4]) && (board[4] == board[5]) && (board[3] != ' ')){
         return true;
-    }else if(board[6] && board[7] && board[8] == 'O' || 'X'){
+    }else if((board[6] == board[7]) && (board[7] == board[8]) && (board[6] != ' ')){
         return true;
-    }if(board[0] && board[3] && board[6] == 'O' || 'X'){
+    }else if((board[0] == board[3]) && (board[3] == board[6]) && (board[0] != ' ')){
         return true;
-    }else if(board[1] && board[4] && board[7] == 'O' || 'X'){
+    }else if((board[1] == board[4]) && (board[4] == board[7]) && (board[1] != ' ')){
         return true;
-    }else if(board[2] && board[5] && board[8] == 'O' || 'X'){
+    }else if((board[2] == board[5]) && (board[5] == board[8]) && (board[2] != ' ')){
         return true;
-    }if(board[0] && board[4] && board[8] == 'O' || 'X'){
+    }else if((board[0] == board[4]) && (board[4] == board[8]) && (board[0] != ' ')){
         return true;
-    }else if(board[6] && board[4] && board[2] == 'O' || 'X'){
+    }else if((board[2] == board[4]) && (board[4] == board[6]) && (board[2] != ' ')){
         return true;
     }else{
         return false;
     }
 }
 
-void pvp(){
+void p1Move(){
     int move;
+    bool turnOver = false;
     bool check = false;
-    rules();
-    while(turns <= 9 && winner == 0){
-        if(turns == 1||3||5||7||9){
-            printf("Player 1 pick a space(1-9): ");
-            scanf("%d", &move);
+    while(!turnOver){
+        scanf("%d", &move);
             if (board[move - 1] > 0){
                 printf("Sorry this space is taken try again\n\n");
             }else{
                 setBoardP1(move);
-                turns ++;
+                turnOver = true;
                 check = checkWin(board);
                 if(check == true){
                     winner = 1;
                 } 
-                }
-                currentBoard();
-        }
+            }
+    }
+}
 
-        else if(turns == 2||4||6||8){
-            printf("Player 2 pick a space(1-9): ");
-            scanf("%d", &move);
+void p2Move(){
+    int move;
+    bool turnOver = false;
+    bool check = false;
+    while(!turnOver){
+        scanf("%d", &move);
             if (board[move - 1] > 0){
                 printf("Sorry this space is taken try again\n\n");
             }else{
-                setBoardP2(move);
-                turns ++;
+                setBoardP1(move);
+                turnOver = true;
                 check = checkWin(board);
                 if(check == true){
                     winner = 2;
                 } 
-                }
-                currentBoard();    
+            }
+    }
+}
+
+void pvp(){
+    int turns = 1;
+    
+    rules();
+    while(turns <= 9 && winner == 0){
+        if(turns == 1||3||5||7||9){
+            printf("Player 1 pick a space(1-9): ");
+            p1Move();
+            currentBoard();
+            turns = turns + 1;
+        }
+
+        else if(turns == 2||4||6||8){
+            printf("Player 2 pick a space(1-9): ");
+            p2Move();
+            currentBoard();
+            turns = turns + 1;
         }
         
     }
