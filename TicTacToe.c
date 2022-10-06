@@ -79,29 +79,27 @@ bool checkWin(char board[]){
         return true;
     }else if(board[6] && board[7] && board[8] == 'O' || 'X'){
         return true;
-    }
-
-    if(board[0] && board[3] && board[6] == 'O' || 'X'){
+    }if(board[0] && board[3] && board[6] == 'O' || 'X'){
         return true;
     }else if(board[1] && board[4] && board[7] == 'O' || 'X'){
         return true;
     }else if(board[2] && board[5] && board[8] == 'O' || 'X'){
         return true;
-    }
-
-    if(board[0] && board[4] && board[8] == 'O' || 'X'){
+    }if(board[0] && board[4] && board[8] == 'O' || 'X'){
         return true;
     }else if(board[6] && board[4] && board[2] == 'O' || 'X'){
         return true;
+    }else{
+        return false;
     }
 }
 
 void pvp(){
     int move;
-    bool check;
+    bool check = false;
     rules();
-    while(turns < 10 || winner == 0){
-        if(turns = 1||3||5||7||9){
+    while(turns <= 9 && winner == 0){
+        if(turns == 1||3||5||7||9){
             printf("Player 1 pick a space(1-9): ");
             scanf("%d", &move);
             if (board[move - 1] > 0){
@@ -109,15 +107,15 @@ void pvp(){
             }else{
                 setBoardP1(move);
                 turns ++;
-                check = checkwinner(board)
-                if(check){
+                check = checkWin(board);
+                if(check == true){
                     winner = 1;
                 } 
                 }
                 currentBoard();
         }
 
-        if(turns = 2||4||6||8){
+        else if(turns == 2||4||6||8){
             printf("Player 2 pick a space(1-9): ");
             scanf("%d", &move);
             if (board[move - 1] > 0){
@@ -125,14 +123,13 @@ void pvp(){
             }else{
                 setBoardP2(move);
                 turns ++;
-                check = checkwinner(board)
-                if(check){
+                check = checkWin(board);
+                if(check == true){
                     winner = 2;
                 } 
                 }
                 currentBoard();    
         }
-        
         
     }
     
