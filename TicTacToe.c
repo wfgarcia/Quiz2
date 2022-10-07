@@ -244,7 +244,7 @@ void pvpc(){
     int turns = 1;
     int move;
     rules();
-    while(turns <= 9 && winner == 0){
+    while(turns < 9 && winner > 0){
         printf("Player 1 pick a space(1-9): ");
         scanf("%d", &move);
         p1Move(move);
@@ -255,6 +255,7 @@ void pvpc(){
             
         turns ++;
         }
+    }
     declairWin(turns);
 }
 
@@ -276,7 +277,8 @@ int main (){
     choice = getchar();
     if(choice == 'A'){
         pvp();
-    }else if (choice == 'B'){
+    }
+    if (choice == 'B'){
         pvpc();
     }
 
