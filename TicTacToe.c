@@ -70,10 +70,10 @@ if(move == 1){
 void declairWin(int turns){
     for(int i = 1; i < 9; i += 2){
         if(turns == i){
-            printf("Player One Wins!");
+            printf("Player One Wins!\n");
         }
         if(turns == (i + 1)){
-            printf("Player Two Wins!");
+            printf("Player Two Wins!\n");
         }
     }
     if(turns == 9){
@@ -107,21 +107,45 @@ int checkHoriz(char board[]){
         return 0;
 }
 int checkVert(char board[]){
-    if((board[0] == board[3]) && (board[3] == board[6]) && (board[0] != ' ') && (board[3] != ' ') && (board[6] != ' ')){
+    if((board[0] == 'O') && (board[3] == 'O') && (board[6] == 'O')  ){
         return 1;
-    }else if((board[1] == board[4]) && (board[4] == board[7]) && (board[1] != ' ') && (board[4] != ' ') && (board[7] != ' ')){
+        
+    }else if((board[1] == 'O') && (board[4] == 'O') && (board[7] == 'O') ){
         return 1;
-    }else if((board[2] == board[5]) && (board[5] == board[8]) && (board[2] != ' ') && (board[5] != ' ') && (board[8] != ' ')){
+        
+    }else if((board[2] == 'O') && (board[5] == 'O') && (board[8] == 'O')){
         return 1;
+        
+    }else 
+        return 0;
+
+    if((board[0] == 'X') && (board[3] == 'X') && (board[6] == 'X')  ){
+        return 1;
+        
+    }else if((board[1] == 'X') && (board[4] == 'X') && (board[7] == 'X') ){
+        return 1;
+        
+    }else if((board[2] == 'X') && (board[5] == 'X') && (board[8] == 'X')){
+        return 1;
+        
     }else 
         return 0;
 }
 int checkDiag(char board[]){
-    if((board[0]==board[4]) && (board[4] == board[8]) && (board[0] != ' ') && (board[4] != ' ') && (board[8] != ' ')){
+    if((board[0] == 'O') && (board[4] == 'O') && (board[8] == 'O')  ){
         return 1;
-    }else if((board[2]==board[4]) && (board[4] == board[6]) && (board[2] != ' ') && (board[4] != ' ') && (board[6] != ' ')){
+        
+    }else if((board[2] == 'O') && (board[4] == 'O') && (board[6] == 'O') ){
         return 1;
-    }else
+    }else 
+        return 0;
+
+    if((board[0] == 'X') && (board[4] == 'X') && (board[8] == 'X')  ){
+        return 1;
+        
+    }else if((board[2] == 'X') && (board[4] == 'X') && (board[6] == 'X') ){
+        return 1;
+    }else 
         return 0;
 }
 
@@ -241,7 +265,7 @@ void pvp(){
 }
 
 void pvpc(){
-    int turns = 1;
+    int turns = 0;
     int move;
     rules();
     while(turns < 9 && winner > 0){
