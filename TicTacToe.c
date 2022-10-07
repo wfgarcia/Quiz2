@@ -5,7 +5,7 @@
 #include<time.h>
 
 //global var
-int winner = 0;
+int winner = 3;
 char board[9];
     
 void rules(){
@@ -67,6 +67,19 @@ if(move == 1){
     board[8] = 'X';
 }
 }
+void declairWin(int turns){
+    for(int i = 1; i < 9; i += 2){
+        if(turns == i){
+            printf("Player One Wins!");
+        }
+        if(turns == (i + 1)){
+            printf("Player Two Wins!");
+        }
+    }
+    if(turns == 9){
+        printf("Draw");
+    }
+}
 
 int checkHoriz(char board[]){
     if((board[0] == board[1]) && (board[1] == board[2]) && (board[0] != ' ') && (board[1] != ' ') && (board[2] != ' ')){
@@ -89,9 +102,9 @@ int checkVert(char board[]){
         return 0;
 }
 int checkDiag(char board[]){
-    if((board[0] == board[4]) && (board[4] == board[8]) && (board[0] != ' ') && (board[4] != ' ') && (board[8] != ' ')){
+    if((board[0]==board[4]) && (board[4] == board[8]) && (board[0] != ' ') && (board[4] != ' ') && (board[8] != ' ')){
         return 1;
-    }else if((board[2] == board[4]) && (board[4] == board[6]) && (board[2] != ' ') && (board[4] != ' ') && (board[6] != ' ')){
+    }else if((board[2]==board[4]) && (board[4] == board[6]) && (board[2] != ' ') && (board[4] != ' ') && (board[6] != ' ')){
         return 1;
     }else
         return 0;
@@ -107,11 +120,17 @@ void p1Move(int move){
             }else{
             setBoardP1(move);
             currentBoard();
-            if(checkDiag(board) == 1){
+            if(checkDiag(board)==1){
                 winner = 1;
-            }else if(checkVert(board) == 1){
+            }else {
+                winner = 0;
+            }
+            if(checkVert(board)==1){
                 winner = 1;
-            }else if(checkHoriz(board) == 1){
+            }else {
+                winner = 0;
+            }
+            if(checkHoriz(board)==1){
                 winner = 1;
             }else {
                 winner = 0;
@@ -132,11 +151,17 @@ void p2Move(int move){
             }else{
             setBoardP2(move);
             currentBoard();
-            if(checkDiag(board) == 1){
+            if(checkDiag(board)==1){
                 winner = 2;
-            }else if(checkVert(board) == 1){
+            }else {
+                winner = 0;
+            }
+            if(checkVert(board)==1){
                 winner = 2;
-            }else if(checkHoriz(board) == 1){
+            }else {
+                winner = 0;
+            }
+            if(checkHoriz(board)==1){
                 winner = 2;
             }else {
                 winner = 0;
@@ -165,13 +190,13 @@ void pvp(){
     int turns = 0;
     int move;
     rules();
-    while(turns < 9){
+    while(turns < 9 && winner > 0){
             printf("Player 1 pick a space(1-9): ");
             scanf("%d", &move);
             p1Move(move);
             turns ++;
             printf("%d", winner);
-            if(turns < 9){
+            if(turns < 9 && winner > 0){
             printf("Player 2 pick a space(1-9): ");
             scanf("%d", &move);
             p2Move(move);
@@ -180,6 +205,7 @@ void pvp(){
             }
         
     }
+    declairWin(turns);
     
 }
 
@@ -215,6 +241,7 @@ void pvpc(){
             turns ++;
         
     }
+    declairWin(turns);
 }
 
 
@@ -246,13 +273,7 @@ int main (){
 
 
     //decide winner 
-    if (winner == 1){
-        printf("Player 1 has won!");
-    }else if(winner == 2){
-        printf("Player 2 has won!");
-    }else {
-        printf("Draw");
-    }
+    
 
     // option to play again? 
 
