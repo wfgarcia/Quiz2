@@ -1,6 +1,8 @@
 //Tic Tac Toe game between 2 players or a computer
 #include<stdio.h>
 #include<stdbool.h>
+#include<stdlib.h>
+#include<time.h>
 
 //global var
 int winner = 0;
@@ -132,9 +134,11 @@ void p2Move(int move){
 
 void computerMove(){
     bool turnOver = false;
+    time_t t;
+    srand((unsigned) time(&t));
     int num = (rand() % (9 - 1 + 1)) + 1;;
     while(!turnOver){ 
-            if (board[move - 1] > 0){
+            if (board[num - 1] > 0){
                num = (rand() % (9 - 1 + 1)) + 1; 
             }else{
                 setBoardP2(num);
