@@ -6,12 +6,7 @@
 
 //global var
 int winner = 0;
-int playSpace[3][3]= {{1,2,3},{4,5,6},{7,8,9}};
 char board[9];
-bool player1 = true;
-bool player2 = false;
-bool computer = false;
-bool win;
     
 void rules(){
     printf("\n\nEnter the coordinates according to the feild below\n\n");
@@ -73,34 +68,33 @@ if(move == 1){
 }
 }
 
-bool checkHoriz(char board[]){
-    if((board[0] == board[1]) && (board[1] == board[2]) && (board[0] != ' ')){
-        return true;
-    }else if((board[3] == board[4]) && (board[4] == board[5]) && (board[3] != ' ')){
-        return true;
-    }else if((board[6] == board[7]) && (board[7] == board[8]) && (board[6] != ' ')){
-        return true;
+int checkHoriz(char board[]){
+    if((board[0] == board[1]) && (board[1] == board[2]) && (board[0] != ' ') && (board[1] != ' ') && (board[2] != ' ')){
+        return 1;
+    }else if((board[3] == board[4]) && (board[4] == board[5]) && (board[3] != ' ') && (board[4] != ' ') && (board[5] != ' ')){
+        return 1;
+    }else if((board[6] == board[7]) && (board[7] == board[8]) && (board[6] != ' ') && (board[7] != ' ') && (board[8] != ' ')){
+        return 1;
     }else 
-        return false;
+        return 0;
 }
-bool checkVert(char board[]){
-    if((board[0] == board[3]) && (board[3] == board[6]) && (board[0] != ' ')){
-        return true;
-    }else if((board[1] == board[4]) && (board[4] == board[7]) && (board[1] != ' ')){
-        return true;
-    }else if((board[2] == board[5]) && (board[5] == board[8]) && (board[2] != ' ')){
-        return true;
+int checkVert(char board[]){
+    if((board[0] == board[3]) && (board[3] == board[6]) && (board[0] != ' ') && (board[3] != ' ') && (board[6] != ' ')){
+        return 1;
+    }else if((board[1] == board[4]) && (board[4] == board[7]) && (board[1] != ' ') && (board[4] != ' ') && (board[7] != ' ')){
+        return 1;
+    }else if((board[2] == board[5]) && (board[5] == board[8]) && (board[2] != ' ') && (board[5] != ' ') && (board[8] != ' ')){
+        return 1;
     }else 
-        return false;
+        return 0;
 }
-bool checkDiag(char board[]){
-    if((board[0] == board[4]) && (board[4] == board[8]) && (board[0] != ' ')){
-        return true;
-    }
-    if((board[2] == board[4]) && (board[4] == board[6]) && (board[2] != ' ')){
-        return true;
+int checkDiag(char board[]){
+    if((board[0] == board[4]) && (board[4] == board[8]) && (board[0] != ' ') && (board[4] != ' ') && (board[8] != ' ')){
+        return 1;
+    }else if((board[2] == board[4]) && (board[4] == board[6]) && (board[2] != ' ') && (board[4] != ' ') && (board[6] != ' ')){
+        return 1;
     }else
-        return false;
+        return 0;
 }
 
 void p1Move(int move){
@@ -151,13 +145,19 @@ void pvp(){
     int turns = 1;
     int move;
     rules();
-    while(turns <= 9 && winner == 0){
+    while(turns <= 9){
             printf("Player 1 pick a space(1-9): ");
             scanf("%d", &move);
             p1Move(move);
             currentBoard();
-            if(checkDiag(board) || checkVert(board) || checkHoriz(board)){
+            if(checkDiag(board) == 1){
                 winner = 1;
+            }else if(checkVert(board) == 1){
+                winner = 1;
+            }else if(checkHoriz(board) == 1){
+                winner = 1;
+            }else {
+                winner = 0;
             }
             turns ++;
 
@@ -165,8 +165,14 @@ void pvp(){
             scanf("%d", &move);
             p2Move(move);
             currentBoard();
-            if(checkDiag(board) || checkVert(board) || checkHoriz(board)){
+            if(checkDiag(board) == 1){
                 winner = 2;
+            }else if(checkVert(board) == 1){
+                winner = 2;
+            }else if(checkHoriz(board) == 1){
+                winner = 2;
+            }else {
+                winner = 0;
             }
             turns ++;
         
@@ -183,16 +189,26 @@ void pvpc(){
             scanf("%d", &move);
             p1Move(move);
             currentBoard();
-            if(checkDiag(board) || checkVert(board) || checkHoriz(board)){
+            if(checkDiag(board) == 1){
                 winner = 1;
-            }
+            }else if(checkVert(board) == 1){
+                winner = 1;
+            }else if(checkHoriz(board) == 1){
+                winner = 1;
+            }else 
+                winner = 0;
             turns ++;
 
             computerMove();
             currentBoard();
-            if(checkDiag(board) || checkVert(board) || checkHoriz(board)){
+            if(checkDiag(board) == 1){
                 winner = 2;
-            }
+            }else if(checkVert(board) == 1){
+                winner = 2;
+            }else if(checkHoriz(board) == 1){
+                winner = 2;
+            }else 
+                winner = 0;
             turns ++;
         
     }
