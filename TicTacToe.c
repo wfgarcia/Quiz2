@@ -82,12 +82,27 @@ void declairWin(int turns){
 }
 
 int checkHoriz(char board[]){
-    if((board[0] == board[1]) && (board[1] == board[2]) && (board[0] != ' ') && (board[1] != ' ') && (board[2] != ' ')){
+    if((board[0] == 'O') && (board[1] == 'O') && (board[2] == 'O')  ){
         return 1;
-    }else if((board[3] == board[4]) && (board[4] == board[5]) && (board[3] != ' ') && (board[4] != ' ') && (board[5] != ' ')){
+        
+    }else if((board[3] == 'O') && (board[4] == 'O') && (board[5] == 'O') ){
         return 1;
-    }else if((board[6] == board[7]) && (board[7] == board[8]) && (board[6] != ' ') && (board[7] != ' ') && (board[8] != ' ')){
+        
+    }else if((board[6] == 'O') && (board[7] == 'O') && (board[8] == 'O')){
         return 1;
+        
+    }else 
+        return 0;
+
+    if((board[0] == 'X') && (board[1] == 'X') && (board[2] == 'X')  ){
+        return 1;
+        
+    }else if((board[3] == 'X') && (board[4] == 'X') && (board[5] == 'X') ){
+        return 1;
+        
+    }else if((board[6] == 'X') && (board[7] == 'X') && (board[8] == 'X')){
+        return 1;
+        
     }else 
         return 0;
 }
@@ -130,7 +145,7 @@ void p1Move(int move){
             }else {
                 winner = 0;
             }
-            if(checkHoriz(board)==1){
+            if(checkHoriz(board)==0){
                 winner = 1;
             }else {
                 winner = 0;
@@ -161,7 +176,7 @@ void p2Move(int move){
             }else {
                 winner = 0;
             }
-            if(checkHoriz(board)==1){
+            if(checkHoriz(board)==0){
                 winner = 2;
             }else {
                 winner = 0;
@@ -180,7 +195,23 @@ void computerMove(){
             if (board[num - 1] > 0){
                num = (rand() % (9 - 1 + 1)) + 1; 
             }else{
-                setBoardP2(num);
+            setBoardP2(num);
+            currentBoard();
+            if(checkDiag(board)==1){
+                winner = 2;
+            }else {
+                winner = 0;
+            }
+            if(checkVert(board)==1){
+                winner = 2;
+            }else {
+                winner = 0;
+            }
+            if(checkHoriz(board)==0){
+                winner = 2;
+            }else {
+                winner = 0;
+            }
                 turnOver = true;
             }
     }
@@ -195,12 +226,12 @@ void pvp(){
             scanf("%d", &move);
             p1Move(move);
             turns ++;
-            printf("%d", winner);
+            
             if(turns < 9 && winner > 0){
             printf("Player 2 pick a space(1-9): ");
             scanf("%d", &move);
             p2Move(move);
-            printf("%d", winner);
+            
             turns ++;
             }
         
@@ -214,33 +245,16 @@ void pvpc(){
     int move;
     rules();
     while(turns <= 9 && winner == 0){
-            printf("Player 1 pick a space(1-9): ");
-            scanf("%d", &move);
-            p1Move(move);
-            currentBoard();
-            if(checkDiag(board) == 1){
-                winner = 1;
-            }else if(checkVert(board) == 1){
-                winner = 1;
-            }else if(checkHoriz(board) == 1){
-                winner = 1;
-            }else 
-                winner = 0;
-            turns ++;
-
-            computerMove();
-            currentBoard();
-            if(checkDiag(board) == 1){
-                winner = 2;
-            }else if(checkVert(board) == 1){
-                winner = 2;
-            }else if(checkHoriz(board) == 1){
-                winner = 2;
-            }else 
-                winner = 0;
-            turns ++;
-        
-    }
+        printf("Player 1 pick a space(1-9): ");
+        scanf("%d", &move);
+        p1Move(move);
+        turns ++;
+            
+        if(turns < 9 && winner > 0){
+        computerMove();
+            
+        turns ++;
+        }
     declairWin(turns);
 }
 
