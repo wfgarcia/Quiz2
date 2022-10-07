@@ -105,7 +105,17 @@ void p1Move(int move){
                  printf("Player 1 pick a space(1-9): ");
                  scanf("%d", &move);
             }else{
-                setBoardP1(move);
+            setBoardP1(move);
+            currentBoard();
+            if(checkDiag(board) == 1){
+                winner = 1;
+            }else if(checkVert(board) == 1){
+                winner = 1;
+            }else if(checkHoriz(board) == 1){
+                winner = 1;
+            }else {
+                winner = 0;
+            }
                 turnOver = true;
             }
     }
@@ -120,7 +130,17 @@ void p2Move(int move){
                  printf("Player 2 pick a space(1-9): ");
                  scanf("%d", &move);
             }else{
-                setBoardP2(move);
+            setBoardP2(move);
+            currentBoard();
+            if(checkDiag(board) == 1){
+                winner = 2;
+            }else if(checkVert(board) == 1){
+                winner = 2;
+            }else if(checkHoriz(board) == 1){
+                winner = 2;
+            }else {
+                winner = 0;
+            }
                 turnOver = true;
             }
     }
@@ -142,39 +162,22 @@ void computerMove(){
 }
 
 void pvp(){
-    int turns = 1;
+    int turns = 0;
     int move;
     rules();
-    while(turns <= 9){
+    while(turns < 9){
             printf("Player 1 pick a space(1-9): ");
             scanf("%d", &move);
             p1Move(move);
-            currentBoard();
-            if(checkDiag(board) == 1){
-                winner = 1;
-            }else if(checkVert(board) == 1){
-                winner = 1;
-            }else if(checkHoriz(board) == 1){
-                winner = 1;
-            }else {
-                winner = 0;
-            }
             turns ++;
-
+            printf("%d", winner);
+            if(turns < 9){
             printf("Player 2 pick a space(1-9): ");
             scanf("%d", &move);
             p2Move(move);
-            currentBoard();
-            if(checkDiag(board) == 1){
-                winner = 2;
-            }else if(checkVert(board) == 1){
-                winner = 2;
-            }else if(checkHoriz(board) == 1){
-                winner = 2;
-            }else {
-                winner = 0;
-            }
+            printf("%d", winner);
             turns ++;
+            }
         
     }
     
